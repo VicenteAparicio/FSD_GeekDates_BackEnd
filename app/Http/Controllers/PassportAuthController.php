@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PassportAuthControllerController extends Controller
+class PassportAuthController extends Controller
 {
     public function register(Request $request) {
         $this->validate($request, [
@@ -13,13 +13,13 @@ class PassportAuthControllerController extends Controller
             'name'=>'required',
             'surname'=>'required',
             'email'=>'required|email',
-            'age'=>'required|min:4',
+            'age'=>'required',
             'phone'=>'required|min:9',
             'country'=>'required',
             'city'=>'required',
             'cp'=>'required',
             'gender'=>'required',
-            'sexuality'=>'requierd',
+            'sexuality'=>'required',
             'password'=>'required|min:8'
         ]);
 

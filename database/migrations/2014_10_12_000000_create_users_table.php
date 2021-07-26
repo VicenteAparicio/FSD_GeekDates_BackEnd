@@ -24,10 +24,13 @@ class CreateUsersTable extends Migration
             $table->string('country');
             $table->string('city');
             $table->integer('cp');
-            $table->integer('gender');
-            $table->integer('sexuality');
+            $table->string('gender');
+            $table->string('sexuality');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('isAdmin')->default(false);
+            $table->boolean('isPremium')->default(false);
+            $table->boolean('isActive')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
