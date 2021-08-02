@@ -29,7 +29,7 @@ class User extends Authenticatable
         'cp',
         'gender',
         'sexuality',
-        'password',
+        'password'
     ];
 
     /**
