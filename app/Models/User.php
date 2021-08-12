@@ -12,6 +12,21 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    // USER HAS MANY LOVERS
+    public function lover(){
+        return $this->hasMany(Lover::class);
+    }
+
+    // USER HAS MANY MESSAGES
+    public function message(){
+        return $this->hasMany(Message::class);
+    }
+
+    // USER HAS ONE HOBBIE TABLE
+    public function hobbie(){
+        return $this->hasOne(Hobbie::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +44,7 @@ class User extends Authenticatable
         'cp',
         'gender',
         'sexuality',
+        'lookingfor',
         'password'
     ];
 

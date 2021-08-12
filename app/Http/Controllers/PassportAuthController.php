@@ -9,33 +9,34 @@ class PassportAuthController extends Controller
 {
     public function register(Request $request) {
         $this->validate($request, [
-            'nick'=>'required|min:3',
-            'name'=>'required|min:3',
-            'surname'=>'required|min:3',
             'email'=>'required|email',
-            'age'=>'required',
+            'password'=>'required|min:8',
+            'nick'=>'required|min:3',
             'phone'=>'required|min:9',
-            'country'=>'required',
-            'city'=>'required',
-            'cp'=>'required',
-            'gender'=>'required',
-            'sexuality'=>'required',
-            'password'=>'required|min:8'
+            // 'name'=>'required|min:3',
+            // 'surname'=>'required|min:3',
+            // 'age'=>'required',
+            // 'country'=>'required',
+            // 'city'=>'required',
+            // 'cp'=>'required',
+            // 'gender'=>'required',
+            // 'sexuality'=>'required',
+            
         ]);
 
         $user = User::create([
-            'nick'=>$request->nick,
-            'name'=>$request->name,
-            'surname'=>$request->surname,
             'email'=>$request->email,
-            'age'=>$request->age,
+            'password'=>bcrypt($request->password),
+            'nick'=>$request->nick,
             'phone'=>$request->phone,
-            'country'=>$request->country,
-            'city'=>$request->city,
-            'cp'=>$request->cp,
-            'gender'=>$request->gender,
-            'sexuality'=>$request->sexuality,
-            'password'=>bcrypt($request->password)
+            // 'name'=>$request->name,
+            // 'surname'=>$request->surname,
+            // 'age'=>$request->age,
+            // 'country'=>$request->country,
+            // 'city'=>$request->city,
+            // 'cp'=>$request->cp,
+            // 'gender'=>$request->gender,
+            // 'sexuality'=>$request->sexuality,
         ]);
 
         $token = $user->createToken('LaravelAuthApp')->accessToken;
