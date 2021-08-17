@@ -13,9 +13,9 @@ class PassportAuthController extends Controller
             'password'=>'required|min:8',
             'nick'=>'required|min:3',
             'phone'=>'required|min:9',
+            'age'=>'required',
             // 'name'=>'required|min:3',
             // 'surname'=>'required|min:3',
-            // 'age'=>'required',
             // 'country'=>'required',
             // 'city'=>'required',
             // 'cp'=>'required',
@@ -29,9 +29,9 @@ class PassportAuthController extends Controller
             'password'=>bcrypt($request->password),
             'nick'=>$request->nick,
             'phone'=>$request->phone,
+            'age'=>$request->age,
             // 'name'=>$request->name,
             // 'surname'=>$request->surname,
-            // 'age'=>$request->age,
             // 'country'=>$request->country,
             // 'city'=>$request->city,
             // 'cp'=>$request->cp,
@@ -52,10 +52,11 @@ class PassportAuthController extends Controller
         ];
 
         if (auth()->attempt($data)) {
+            $user = auth()->user();
             $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
-            return response()->json(['token' =>$token], 200);
+            return response()->json(['token' =>$token, 'user'=>$user], 200);
         } else {
-            return response()->json(['error'=>'Tu puta Unauthorised'], 401);
+            return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
 }

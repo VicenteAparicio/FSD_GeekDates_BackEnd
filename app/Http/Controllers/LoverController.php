@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Match;
+use App\Models\Lover;
 use Illuminate\Http\Request;
 
-class MatchController extends Controller
+class LoverController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class MatchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Match  $Match
+     * @param  \App\Models\Lover  $Lover
      * @return \Illuminate\Http\Response
      */
-    public function show(Match $Match)
+    public function show(Lover $Lover)
     {
         //
     }
@@ -52,10 +52,10 @@ class MatchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Match  $Match
+     * @param  \App\Models\Lover  $Lover
      * @return \Illuminate\Http\Response
      */
-    public function edit(Match $Match)
+    public function edit(Lover $Lover)
     {
         //
     }
@@ -64,10 +64,10 @@ class MatchController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Match  $Match
+     * @param  \App\Models\Lover  $Lover
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Match $Match)
+    public function update(Request $request, Lover $Lover)
     {
         //
     }
@@ -75,10 +75,10 @@ class MatchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Match  $Match
+     * @param  \App\Models\Lover  $Lover
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Match $Match)
+    public function destroy(Lover $Lover)
     {
         //
     }

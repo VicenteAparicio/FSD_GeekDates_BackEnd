@@ -141,21 +141,17 @@ class userController extends Controller
         $logUser = auth()->user();
         $user = User::find($request->user_id);
 
-        if ($request->user_id == $logUser->id || $logUser->isAdmin == true) {
-
-            $userUp = $user->fill([
-                'username'=>$request->username,
-                'steamId'=>$request->steamId,
-                'email'=>$request->email,
-                'password'=>bcrypt($request->password)
-            ])->save();
+        if ($user) {
+            
+            $userUp = $user->update(request()->all());
 
             if($userUp) {
 
                 return response()->json([
                     'success' => true,
+                    'message'=>'User updated',
                     'data' => $user
-                ], 400);
+                ], 200);
 
             } else {
 

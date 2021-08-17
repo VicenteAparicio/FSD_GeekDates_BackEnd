@@ -22,7 +22,7 @@ Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function() {
 
     // USER ROUTES
-    Route::post('updateuser', [UserController::class, 'update']);
+    Route::post('updateinfo', [UserController::class, 'update']);
     Route::post('deleteuser', [UserController::class, 'destroy']);
     Route::post('logout', [UserController::class, 'logout']);
     Route::get('searchAll', [UserController::class, 'searchAll']);
