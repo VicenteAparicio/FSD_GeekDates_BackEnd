@@ -17,7 +17,7 @@ class CreateLoversTable extends Migration
             $table->id();
             $table->foreignId('user_a_id')->references('id')->on('users');
             $table->foreignId('user_b_id')->references('id')->on('users');
-            $table->boolean('isActive');
+            $table->boolean('isActive')->default(false);
             $table->timestamps();
         });
     }

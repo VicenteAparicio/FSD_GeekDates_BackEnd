@@ -24,7 +24,7 @@ class LoverController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,13 @@ class LoverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $logUser = auth()->user();
+
+        $lover = Lover::create([
+            'user_a_id'=>$request->user_a_id,
+            'user_b_id'=>$request->user_b_id
+        ]);
+        
     }
 
     /**

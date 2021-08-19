@@ -16,11 +16,11 @@ class CreateHobbiesTable extends Migration
         Schema::create('hobbies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->boolean('tablegames');
-            $table->boolean('rolegames');
-            $table->boolean('videogames');
-            $table->boolean('cosplay');
-            $table->boolean('anime');
+            $table->boolean('tablegames')->default(false);
+            $table->boolean('rolegames')->default(false);
+            $table->boolean('videogames')->default(false);
+            $table->boolean('cosplay')->default(false);
+            $table->boolean('anime')->default(false);
             $table->timestamps();
         });
     }

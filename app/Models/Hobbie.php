@@ -13,4 +13,13 @@ class Hobbie extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'tablegames',
+        'rolegames',
+        'videogames',
+        'cosplay',
+        'anime'
+    ];
 }

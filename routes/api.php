@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HobbieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,9 @@ Route::middleware('auth:api')->group(function() {
     Route::get('allusers', [UserController::class, 'allUsers']);
     Route::get('activeusers', [UserController::class, 'activeUsers']);
     Route::post('userbyid', [UserController::class, 'userById']);
+
+    // HOBBIE ROUTES
+    Route::post('fillhobbies', [HobbieController::class, 'store']);
+    Route::post('updatehobbies', [HobbieController::class, 'update']);
     
 });

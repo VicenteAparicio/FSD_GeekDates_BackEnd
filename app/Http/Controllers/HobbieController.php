@@ -7,54 +7,57 @@ use Illuminate\Http\Request;
 
 class HobbieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $checkhobbie = Hobbie::where('user_id', $request->user_id)->get();
+
+            if ($checkhobbie->isEmpty()) {
+
+                $hobbie = Hobbie::create([
+                    'user_id'=>$request->user_id,
+                    'tablegames'=>$request->tablegames,
+                    'rolegames'=>$request->rolegames,
+                    'videogames'=>$request->videogames,
+                    'cosplay'=>$request->cosplay,
+                    'anime'=>$request->anime,
+                ]);
+
+                if ($hobbie) {
+
+                    return response()->json([
+                        'success' => true,
+                        'data' => $hobbie
+                    ], 200);
+
+                } 
+            }
+            return response()->json([
+                'success'=>false,
+                'message'=>'Ya rellenaste tus hobbies'
+            ], 500);
+        
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Hobbie  $hobbie
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Hobbie $hobbie)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Hobbie  $hobbie
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Hobbie $hobbie)
     {
         //
@@ -67,9 +70,33 @@ class HobbieController extends Controller
      * @param  \App\Models\Hobbie  $hobbie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hobbie $hobbie)
+    public function update(Request $request)
     {
-        //
+        $logUser = auth()->user();
+        $hobbie = Hobbie::where('user_id', $request->user_id);
+
+        if ($logUser->id == $hobbie->user_id) {
+
+            $updated = $hobbie->update($request->all());
+
+            if ($updated) {
+                return response()->json([
+                    'success'=>true,
+                    'data'=>$hobbie
+                ], 200);
+            } else {
+                return response()->json([
+                    'success'=>false,
+                    'message'=> 'Error hobbie not updated'
+                ], 500);
+
+            }
+        } else {
+            return response()->json([
+                'success'=>false,
+                'message'=> 'You can not update this hobbies'
+            ], 400);
+        }
     }
 
     /**
@@ -78,8 +105,8 @@ class HobbieController extends Controller
      * @param  \App\Models\Hobbie  $hobbie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hobbie $hobbie)
+    public function destroy(Request $request)
     {
-        //
+
     }
 }
