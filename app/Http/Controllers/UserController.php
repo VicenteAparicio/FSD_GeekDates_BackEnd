@@ -62,7 +62,7 @@ class userController extends Controller
 
     // SHOW ALL USERS EXCEPT CURRENT USER LOGGED
 
-    public function searchAll()
+    public function allPlayers()
     {
         $users = User::where('id', '!=', auth()->id())->where('isActive', true)->get();
 
@@ -87,9 +87,10 @@ class userController extends Controller
 
     public function userById(Request $request)
     {
+        $logUser= auth()->user();
         $user = User::find($request->user_id);
     
-        if ($user->isAdmin) {
+        if ($logUser->isAdmin) {
 
             return response()->json([
                 'success' => true,
@@ -150,7 +151,7 @@ class userController extends Controller
                 return response()->json([
                     'success' => true,
                     'message'=>'User updated',
-                    'data' => $user
+                    'user' => $user
                 ], 200);
 
             } else {

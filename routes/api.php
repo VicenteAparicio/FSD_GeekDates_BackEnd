@@ -26,7 +26,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('updateinfo', [UserController::class, 'update']);
     Route::post('deleteuser', [UserController::class, 'destroy']);
     Route::post('logout', [UserController::class, 'logout']);
-    Route::get('searchAll', [UserController::class, 'searchAll']);
+    Route::get('allplayers', [UserController::class, 'allPlayers']);
     Route::post('userbyname', [UserController::class, 'userByName']);
     // EXCLUSIVE ADMIN ROUTES
     Route::get('allusers', [UserController::class, 'allUsers']);
