@@ -83,6 +83,37 @@ class userController extends Controller
         }
     }
 
+    // SHOW DEFAULT SEARCH BASED ON USER PREFERENCES
+
+    public function defaultSearch(Request $request)
+    {
+
+        $players = User::where('id', '!=', auth()->id())
+            ->where('gender', $request->lookingfor)
+            ->where('lookingfor', $request->gender)
+            ->orWhere([
+                ['lookingfor', 'both'],
+                ['gender', $request->lookingfor]])
+            ->get();
+
+
+        if (!$players->isEmpty()) {
+
+            return response()->json([
+                'success' => true,
+                'data' => $players
+            ], 200);
+
+        }else{      
+
+            return response()->json([
+                'success' => false,
+                'messate' => 'Error'
+            ], 400);
+
+        }
+    }
+
     // SHOW USER BY ID 
 
     public function userById(Request $request)
@@ -90,7 +121,7 @@ class userController extends Controller
         $logUser= auth()->user();
         $user = User::find($request->user_id);
     
-        if ($logUser->isAdmin) {
+        if ($logUser) {
 
             return response()->json([
                 'success' => true,
