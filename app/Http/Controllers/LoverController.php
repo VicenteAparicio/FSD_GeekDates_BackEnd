@@ -7,59 +7,38 @@ use Illuminate\Http\Request;
 
 class LoverController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // SAVE LOVER ROW WAITING FOR MATCH
+    // ACTIVE MATCH IN CASE LOVER ROW WAS CREATED BY THE OTHER PLAYER
     public function store(Request $request)
     {
         $check = Lover::where('user_a_id', $request->user_b_id)
                     ->where('user_b_id', $request->user_a_id)->get();
 
-        if (!$check->isEmpty()) {
-                $check[0]->isActive = true;
-                $check[0]->save();
+        if (!$check->isEmpty() && $check[0]->isActive==false) {
+            $check[0]->isActive = true;
+            $check[0]->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'MATCH!!!'
+            ], 200);
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'MATCH!!!'
-                ], 200);
+        } else if (!$check->isEmpty() && $check[0]->isActive==true) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Already matched'
+            ], 200);
             
         } else if ($check->isEmpty()) {
 
             $checked = Lover::where('user_a_id', $request->user_a_id)
                 ->where('user_b_id', $request->user_b_id)->get();
 
-                if (!$checked->isEmpty()){
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'You have to wait for the other player'
-                    ], 400);
-
-                }
-
+            if (!$checked->isEmpty()){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You have to wait for the other player'
+                ], 400);
+            }
         }
 
 
@@ -85,46 +64,12 @@ class LoverController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Lover  $Lover
-     * @return \Illuminate\Http\Response
-     */
     public function show(Lover $Lover)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Lover  $Lover
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lover $Lover)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Lover  $Lover
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Lover $Lover)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Lover  $Lover
-     * @return \Illuminate\Http\Response
-     */
+    // DELETE LOVER ROW (HAS TO BE DELETED IN CASE THEY WANT TO TALK IN A FUTURE)
     public function destroy(Request $request)
     {
         $check = Lover::where('user_a_id', $request->user_b_id)
@@ -132,10 +77,10 @@ class LoverController extends Controller
 
         if ($check->isEmpty()) {
 
-            $checked = Lover::where('user_a_id', $request->user_a_id)
+            $check = Lover::where('user_a_id', $request->user_a_id)
                 ->where('user_b_id', $request->user_b_id)->get();
             
-            if ($checked->isEmpty()){
+            if ($check->isEmpty()){
                 return response()->json([
                     'success'=>false,
                     'message'=>'Lover not matched anymore'
@@ -143,8 +88,7 @@ class LoverController extends Controller
             }
         }
 
-        $check->isActive = false;
-        $check->save();
+        $check[0]->delete();
 
         return response()->json([
             'success' => true,
