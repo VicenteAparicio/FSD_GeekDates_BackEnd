@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Hobbie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller
 {
@@ -85,34 +87,75 @@ class userController extends Controller
 
     // SHOW DEFAULT SEARCH BASED ON USER PREFERENCES
 
-    public function defaultSearch(Request $request)
-    {
+    // public function defaultSearch(Request $request)
+    // {
+    //     // $hobbie = Hobbie::where('user_id', $request->user_id)->get();
+    //     $players = User::where('id', '!=', auth()->id())
+    //         ->where('gender', $request->lookingfor)
+    //         ->where('lookingfor', $request->gender)
+    //         ->orWhere([
+    //             ['lookingfor', 'both'],
+    //             ['gender', $request->lookingfor]])
+    //         ->get();
 
-        $players = User::where('id', '!=', auth()->id())
-            ->where('gender', $request->lookingfor)
-            ->where('lookingfor', $request->gender)
-            ->orWhere([
-                ['lookingfor', 'both'],
-                ['gender', $request->lookingfor]])
-            ->get();
 
+    //     if (!$players->isEmpty()) {
 
-        if (!$players->isEmpty()) {
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $players,
+    //             // 'hobbie' => $hobbie
+    //         ], 200);
 
-            return response()->json([
-                'success' => true,
-                'data' => $players
-            ], 200);
+    //     }else{      
 
-        }else{      
+    //         return response()->json([
+    //             'success' => false,
+    //             'messate' => 'Error'
+    //         ], 400);
+    //     }
+    // }
 
-            return response()->json([
-                'success' => false,
-                'messate' => 'Error'
-            ], 400);
+        // SHOW SEARCH BASED ON HOBBIES
 
+        public function defaultSearch(Request $request)
+        {
+           
+            $players = DB::table('users')
+                // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
+                ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+
+                // THIS EXCLUSION IS RESOLVED ON FRONT-END
+                // ->where('id', '!=', auth()->id())
+
+                // SEARCH BASED ON "LOOKING FOR" AND "GENDER" PLAYERS-USERS SENT BY ACTUAL USER BY DEFAULT
+                ->where('gender', $request->lookingfor)
+                ->where('lookingfor', $request->gender)
+                ->where('isActive', true)
+
+                // IN CASE THE PLAYER MATCH GENDER BUT IS BISEXUAL AND IS LOOKING FOR BOTH GENDERS
+                ->orWhere([
+                    ['lookingfor', 'both'],
+                    ['gender', $request->lookingfor],
+                    ['isActive', true]])
+                ->get();
+                    
+    
+            if (!$players->isEmpty()) {
+    
+                return response()->json([
+                    'success' => true,
+                    'data' => $players,
+                ], 200);
+    
+            }else{      
+    
+                return response()->json([
+                    'success' => false,
+                    'messate' => 'Error'
+                ], 400);
+            }
         }
-    }
 
     // SHOW USER BY ID 
 
