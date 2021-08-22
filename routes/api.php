@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HobbieController;
+use App\Http\Controllers\LoverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('allplayers', [UserController::class, 'allPlayers']);
     Route::post('userbyname', [UserController::class, 'userByName']);
     Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
+    
     // EXCLUSIVE ADMIN ROUTES
     Route::get('allusers', [UserController::class, 'allUsers']);
     Route::get('activeusers', [UserController::class, 'activeUsers']);
@@ -37,5 +39,9 @@ Route::middleware('auth:api')->group(function() {
     // HOBBIE ROUTES
     Route::post('fillhobbies', [HobbieController::class, 'store']);
     Route::post('updatehobbies', [HobbieController::class, 'update']);
+
+    // LOVER ROUTES
+    Route::post('match', [LoverController::class, 'store']);
+    Route::post('unmatch', [LoverController::class, 'destroy']);
     
 });

@@ -118,9 +118,30 @@ class userController extends Controller
 
         // SHOW SEARCH BASED ON HOBBIES
 
-        public function defaultSearch(Request $request)
-        {
-           
+    public function defaultSearch(Request $request)
+    {
+        // IN CASE LOOKING FOR IS BOTH I HAVE TO CHANGE THE SEARCH METHOD
+        if ($request->lookingfor == "both"){
+            
+            $players = DB::table('users')
+                // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
+                ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
+
+                // NO MATTER GENDERS, ONLY WHAT THEY ARE LOOKING FOR MATCHES WITH THE ACTUAL USER BEING
+                ->where('lookingfor', $request->gender)
+                ->where('isActive', true)
+
+                // IN CASE THE PLAYER MATCH GENDER BUT IS BISEXUAL AND IS LOOKING FOR BOTH GENDERS
+                ->orWhere([
+                    ['lookingfor', 'both'],
+                    ['isActive', true]])
+                ->get();
+
+
+        
+        } else {
+
+            // REST OF SEARCHS BASED ON THE DEFAULT USER PREFERENCES NOT LOOKING FOR BOTH GENDERS
             $players = DB::table('users')
                 // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
                 ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
@@ -132,30 +153,30 @@ class userController extends Controller
                 ->where('gender', $request->lookingfor)
                 ->where('lookingfor', $request->gender)
                 ->where('isActive', true)
-
+                
                 // IN CASE THE PLAYER MATCH GENDER BUT IS BISEXUAL AND IS LOOKING FOR BOTH GENDERS
                 ->orWhere([
                     ['lookingfor', 'both'],
                     ['gender', $request->lookingfor],
                     ['isActive', true]])
                 ->get();
-                    
-    
-            if (!$players->isEmpty()) {
-    
-                return response()->json([
-                    'success' => true,
-                    'data' => $players,
-                ], 200);
-    
-            }else{      
-    
-                return response()->json([
-                    'success' => false,
-                    'messate' => 'Error'
-                ], 400);
-            }
         }
+
+        if (!$players->isEmpty()) {
+
+            return response()->json([
+                'success' => true,
+                'data' => $players,
+            ], 200);
+
+        }else{      
+
+            return response()->json([
+                'success' => false,
+                'messate' => 'Players not found'
+            ], 400);
+        }
+    }
 
     // SHOW USER BY ID 
 
