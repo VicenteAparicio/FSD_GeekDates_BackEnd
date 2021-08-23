@@ -85,38 +85,67 @@ class userController extends Controller
         }
     }
 
-    // SHOW DEFAULT SEARCH BASED ON USER PREFERENCES
+    // SHOW LOVERS MATCHES
 
-    // public function defaultSearch(Request $request)
-    // {
-    //     // $hobbie = Hobbie::where('user_id', $request->user_id)->get();
-    //     $players = User::where('id', '!=', auth()->id())
-    //         ->where('gender', $request->lookingfor)
-    //         ->where('lookingfor', $request->gender)
-    //         ->orWhere([
-    //             ['lookingfor', 'both'],
-    //             ['gender', $request->lookingfor]])
-    //         ->get();
+    public function loverMatches(Request $request)
+    {
+        // $matches = DB::table('lovers')
+        //     ->where([
+        //         ['user_a_id', $request->user_id],
+        //         ['isActive', true]])
+        //     ->orWhere([
+        //         ['user_b_id', $request->user_id],
+        //         ['isActive', true]])
+        //         ->get();
+
+        // $matches = DB::table('users')
+        //     ->join('lovers', function($join){
+        //         $join->on('users.id', '=', 'lovers.user_b_id')
+        //         ->where('users.id', '!=', auth()->id())
+        //         ->orOn('users.id', '=', 'lovers.user_a_id')
+        //         ->where('users.id', '!=', auth()->id());
+        //     })
+        // ->get();
+
+        // $matches = DB::table('lovers')
+        //     ->join('users', function($join){
+        //         $join->on()->where('lovers.user_a_id', '=', auth()->id())->orWhere('lovers.user_b_id', '=', auth()->id());
+        //         // ->orOn('lovers.user_b_id', '=', auth()->id());
+        //     })
+        // ->get();
+
+        $matches = DB::table('users')
+            ->join('lovers', function($join){
+                $join->on('users.id', '=', 'lovers.user_b_id')
+                    ->where('lovers.user_a_id', '=', auth()->id())
+                    ->where('lovers.isActive','=', 1)
+                    ->orOn('users.id', '=', 'lovers.user_a_id')
+                    ->where('lovers.user_b_id', '=', auth()->id())
+                    ->where('lovers.isActive', '=', 1)
+            ;})
+        ->get();
+
+        
 
 
-    //     if (!$players->isEmpty()) {
+        if (!$matches->isEmpty()) {
 
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $players,
-    //             // 'hobbie' => $hobbie
-    //         ], 200);
+            return response()->json([
+                'success' => true,
+                'data' => $matches,
+                // 'hobbie' => $hobbie
+            ], 200);
 
-    //     }else{      
+        }else{      
 
-    //         return response()->json([
-    //             'success' => false,
-    //             'messate' => 'Error'
-    //         ], 400);
-    //     }
-    // }
+            return response()->json([
+                'success' => false,
+                'messate' => 'Error'
+            ], 400);
+        }
+    }
 
-        // SHOW SEARCH BASED ON HOBBIES
+        // SHOW SEARCH BASED ON USER PREFERENCES
 
     public function defaultSearch(Request $request)
     {

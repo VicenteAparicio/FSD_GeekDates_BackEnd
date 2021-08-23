@@ -30,6 +30,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('allplayers', [UserController::class, 'allPlayers']);
     Route::post('userbyname', [UserController::class, 'userByName']);
     Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
+    Route::post('lovermatches', [UserController::class, 'loverMatches']);
     
     // EXCLUSIVE ADMIN ROUTES
     Route::get('allusers', [UserController::class, 'allUsers']);
@@ -37,11 +38,12 @@ Route::middleware('auth:api')->group(function() {
     Route::post('userbyid', [UserController::class, 'userById']);
 
     // HOBBIE ROUTES
-    Route::post('fillhobbies', [HobbieController::class, 'store']);
+    Route::post('hobbies', [HobbieController::class, 'store']);
     Route::post('updatehobbies', [HobbieController::class, 'update']);
 
     // LOVER ROUTES
     Route::post('match', [LoverController::class, 'store']);
     Route::post('unmatch', [LoverController::class, 'destroy']);
+    Route::post('lovers', [LoverController::class, 'index']);
     
 });

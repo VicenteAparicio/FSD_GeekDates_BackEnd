@@ -23,30 +23,31 @@ class HobbieController extends Controller
     {
         $checkhobbie = Hobbie::where('user_id', $request->user_id)->get();
 
-            if ($checkhobbie->isEmpty()) {
+        if ($checkhobbie->isEmpty()) {
 
-                $hobbie = Hobbie::create([
-                    'user_id'=>$request->user_id,
-                    'tablegames'=>$request->tablegames,
-                    'rolegames'=>$request->rolegames,
-                    'videogames'=>$request->videogames,
-                    'cosplay'=>$request->cosplay,
-                    'anime'=>$request->anime,
-                ]);
+            $hobbie = Hobbie::create([
+                'user_id'=>$request->user_id,
+                'tablegames'=>$request->tablegames,
+                'rolegames'=>$request->rolegames,
+                'videogames'=>$request->videogames,
+                'cosplay'=>$request->cosplay,
+                'anime'=>$request->anime,
+            ]);
 
-                if ($hobbie) {
+            if ($hobbie) {
 
-                    return response()->json([
-                        'success' => true,
-                        'data' => $hobbie
-                    ], 200);
+                return response()->json([
+                    'success' => true,
+                    'message'=>'Hobbies created',
+                    'data' => $hobbie
+                ], 200);
 
-                } 
-            }
-            return response()->json([
-                'success'=>false,
-                'message'=>'Ya rellenaste tus hobbies'
-            ], 500);
+            } 
+        }
+        return response()->json([
+            'success'=>false,
+            'message'=>'Ya rellenaste tus hobbies'
+        ], 500);
         
 
     }
@@ -75,14 +76,14 @@ class HobbieController extends Controller
         $logUser = auth()->user();
         $hobbie = Hobbie::where('user_id', $request->user_id);
 
-        if ($logUser->id == $hobbie->user_id) {
+        if ($hobbie) {
 
             $updated = $hobbie->update($request->all());
 
             if ($updated) {
                 return response()->json([
                     'success'=>true,
-                    'data'=>$hobbie
+                    'message'=>'Hobbies updated'
                 ], 200);
             } else {
                 return response()->json([
