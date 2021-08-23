@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 class userController extends Controller
 {
 
-    // SHOW ALL USERS (ADMIN)
-
+    // SHOW ALL USERS EVEN IF THE ARE NOT ACTIVE (ADMIN) (NOT IN USE)
     public function allUsers()
     {
         $user = auth()->user();
@@ -36,8 +35,7 @@ class userController extends Controller
     }
 
 
-    // SHOW ALL ACTIVE USERS (ADMIN)
-
+    // SHOW ALL ACTIVE USERS (ADMIN) (NOT IN USE)
     public function activeUsers()
     {
         $user = auth()->user();
@@ -62,8 +60,7 @@ class userController extends Controller
     }
 
 
-    // SHOW ALL USERS EXCEPT CURRENT USER LOGGED
-
+    // SHOW ALL USERS EXCEPT CURRENT USER LOGGED (NOT IN USE)
     public function allPlayers()
     {
         $users = User::where('id', '!=', auth()->id())->where('isActive', true)->get();
@@ -85,55 +82,32 @@ class userController extends Controller
         }
     }
 
-    // SHOW LOVERS MATCHES
-
-    public function loverMatches(Request $request)
+    // GET MATCHES INFO FROM ACTUAL USER
+    public function loverMatches()
     {
-        // $matches = DB::table('lovers')
-        //     ->where([
-        //         ['user_a_id', $request->user_id],
-        //         ['isActive', true]])
-        //     ->orWhere([
-        //         ['user_b_id', $request->user_id],
-        //         ['isActive', true]])
-        //         ->get();
-
-        // $matches = DB::table('users')
-        //     ->join('lovers', function($join){
-        //         $join->on('users.id', '=', 'lovers.user_b_id')
-        //         ->where('users.id', '!=', auth()->id())
-        //         ->orOn('users.id', '=', 'lovers.user_a_id')
-        //         ->where('users.id', '!=', auth()->id());
-        //     })
-        // ->get();
-
-        // $matches = DB::table('lovers')
-        //     ->join('users', function($join){
-        //         $join->on()->where('lovers.user_a_id', '=', auth()->id())->orWhere('lovers.user_b_id', '=', auth()->id());
-        //         // ->orOn('lovers.user_b_id', '=', auth()->id());
-        //     })
-        // ->get();
-
         $matches = DB::table('users')
+            // GET LOVERS TABLE TO COMPARE USERS ID
             ->join('lovers', function($join){
+
+                // COMPARE FIRST USER ID IS ON THE LOVERS ROW
                 $join->on('users.id', '=', 'lovers.user_b_id')
+
+                    // CHECK ACTUAL USER IS ON THE LOVERS ROW
                     ->where('lovers.user_a_id', '=', auth()->id())
                     ->where('lovers.isActive','=', 1)
+
+                    // COMPARE THE OTHER USER ID ON LOVERS ROW
                     ->orOn('users.id', '=', 'lovers.user_a_id')
                     ->where('lovers.user_b_id', '=', auth()->id())
                     ->where('lovers.isActive', '=', 1)
             ;})
-        ->get();
-
-        
-
+            ->get();
 
         if (!$matches->isEmpty()) {
 
             return response()->json([
                 'success' => true,
                 'data' => $matches,
-                // 'hobbie' => $hobbie
             ], 200);
 
         }else{      
@@ -142,17 +116,19 @@ class userController extends Controller
                 'success' => false,
                 'messate' => 'Error'
             ], 400);
+
         }
     }
 
-        // SHOW SEARCH BASED ON USER PREFERENCES
-
+    
+    // GET PLAYERS BASED ON USER PREFERENCES
     public function defaultSearch(Request $request)
     {
         // IN CASE LOOKING FOR IS BOTH I HAVE TO CHANGE THE SEARCH METHOD
         if ($request->lookingfor == "both"){
             
             $players = DB::table('users')
+
                 // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
                 ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
 
@@ -164,14 +140,14 @@ class userController extends Controller
                 ->orWhere([
                     ['lookingfor', 'both'],
                     ['isActive', true]])
+
                 ->get();
 
-
-        
         } else {
 
             // REST OF SEARCHS BASED ON THE DEFAULT USER PREFERENCES NOT LOOKING FOR BOTH GENDERS
             $players = DB::table('users')
+
                 // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
                 ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
 
@@ -188,6 +164,7 @@ class userController extends Controller
                     ['lookingfor', 'both'],
                     ['gender', $request->lookingfor],
                     ['isActive', true]])
+
                 ->get();
         }
 
@@ -207,8 +184,7 @@ class userController extends Controller
         }
     }
 
-    // SHOW USER BY ID 
-
+    // SHOW USER BY ID (NOT IN USE)
     public function userById(Request $request)
     {
         $logUser= auth()->user();
@@ -237,8 +213,7 @@ class userController extends Controller
     }
 
 
-    // SHOW USER BY NAME
-
+    // SHOW USER BY NAME (NOT IN USE)
     public function userByName(Request $request)
     {
         $user = User::where('username', $request->user_name)->get();
@@ -260,10 +235,8 @@ class userController extends Controller
 
 
     // UPDATE USER
-
     public function update(Request $request)
     {
-        $logUser = auth()->user();
         $user = User::find($request->user_id);
 
         if ($user) {
@@ -298,7 +271,6 @@ class userController extends Controller
 
 
     // DEACTIVATE USER
-
     public function destroy(Request $request)
     {
         
@@ -328,22 +300,25 @@ class userController extends Controller
 
 
     // LOG OUT
-
     public function logout(Request $request)
     {
         $user = auth()->user();
         $userOut = $request->user()->token()->revoke();
 
         if ($userOut) {
+
             return response()->json([
                 'success' => true,
                 'message' => $user->userName . ' successfully logged out'
-            ]);
+            ], 200);
+
         } else {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error, you can\'t leave us.'
             ], 500);
+
         }
     }
 }

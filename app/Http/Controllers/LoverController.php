@@ -65,38 +65,6 @@ class LoverController extends Controller
         
     }
 
-    public function index(Request $request)
-    {
-        $logUser = auth()->user();
-
-        $lovers = Lover::where([
-            ['user_a_id', $request->user_id],
-            ['isActive', true]
-            ])
-            ->orWhere([
-                ['user_b_id', $request->user_id],
-                ['isActive', true]
-            ])
-            ->get();
-
-
-            if (!$lovers->isEmpty()){
-                return response()->json([
-                    'success' => true,
-                    'data'=>$lovers
-                ], 200);
-                
-            } else {
-
-                return response()->json([
-                    'success'=>false,
-                    'message'=>'You have no matches'
-                ], 400);
-            }
-
-    }
-    
-
     // DELETE LOVER ROW (HAS TO BE DELETED IN CASE THEY WANT TO TALK IN A FUTURE)
     public function destroy(Request $request)
     {

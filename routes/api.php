@@ -44,6 +44,5 @@ Route::middleware('auth:api')->group(function() {
     // LOVER ROUTES
     Route::post('match', [LoverController::class, 'store']);
     Route::post('unmatch', [LoverController::class, 'destroy']);
-    Route::post('lovers', [LoverController::class, 'index']);
     
 });
