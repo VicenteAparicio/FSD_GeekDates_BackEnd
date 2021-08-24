@@ -28,7 +28,6 @@ Route::middleware('auth:api')->group(function() {
     Route::post('updateinfo', [UserController::class, 'update']);
     Route::post('deleteuser', [UserController::class, 'destroy']);
     Route::post('logout', [UserController::class, 'logout']);
-    Route::get('allplayers', [UserController::class, 'allPlayers']);
     Route::post('userbyname', [UserController::class, 'userByName']);
     Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
     Route::post('lovermatches', [UserController::class, 'loverMatches']);
