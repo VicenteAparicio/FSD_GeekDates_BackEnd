@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lover;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoverController extends Controller
@@ -62,11 +63,6 @@ class LoverController extends Controller
         }
 
         
-    }
-
-    public function show(Lover $Lover)
-    {
-        //
     }
 
     // DELETE LOVER ROW (HAS TO BE DELETED IN CASE THEY WANT TO TALK IN A FUTURE)

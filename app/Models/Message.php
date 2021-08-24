@@ -20,13 +20,14 @@ class Message extends Model
     }
 
     protected $fillable = [
-        'message',
+        'text',
         'date',
         'match_id',
-        'user_id'
+        'user_from_id',
+        'user_to_id'
     ];
 
-    protected $hidden = [
-        'isActive',
-    ];
+    // protected $hidden = [
+    //     'isActive',
+    // ];
 }

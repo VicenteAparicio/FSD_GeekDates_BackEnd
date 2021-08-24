@@ -7,84 +7,60 @@ use Illuminate\Http\Request;
 
 class HobbieController extends Controller
 {
-
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        
-    }
-
-
+    // CREATE HOBBIES ROW WITH USER ID
     public function store(Request $request)
     {
         $checkhobbie = Hobbie::where('user_id', $request->user_id)->get();
 
-            if ($checkhobbie->isEmpty()) {
+        if ($checkhobbie->isEmpty()) {
 
-                $hobbie = Hobbie::create([
-                    'user_id'=>$request->user_id,
-                    'tablegames'=>$request->tablegames,
-                    'rolegames'=>$request->rolegames,
-                    'videogames'=>$request->videogames,
-                    'cosplay'=>$request->cosplay,
-                    'anime'=>$request->anime,
-                ]);
+            $hobbie = Hobbie::create([
+                
+                'user_id'=>$request->user_id,
+                'tablegames'=>$request->tablegames,
+                'rolegames'=>$request->rolegames,
+                'videogames'=>$request->videogames,
+                'cosplay'=>$request->cosplay,
+                'anime'=>$request->anime,
+            ]);
 
-                if ($hobbie) {
+            if ($hobbie) {
 
-                    return response()->json([
-                        'success' => true,
-                        'data' => $hobbie
-                    ], 200);
+                return response()->json([
+                    'success' => true,
+                    'message'=>'Hobbies created',
+                    'data' => $hobbie
+                ], 200);
 
-                } 
-            }
-            return response()->json([
-                'success'=>false,
-                'message'=>'Ya rellenaste tus hobbies'
-            ], 500);
-        
+            } 
+        }
+
+        return response()->json([
+            'success'=>false,
+            'message'=>'Ya rellenaste tus hobbies'
+        ], 500);
 
     }
 
 
-    public function show(Hobbie $hobbie)
-    {
-        
-    }
-
-
-    public function edit(Hobbie $hobbie)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hobbie  $hobbie
-     * @return \Illuminate\Http\Response
-     */
+    // UPDATE USER HOBBIES
     public function update(Request $request)
     {
-        $logUser = auth()->user();
         $hobbie = Hobbie::where('user_id', $request->user_id);
 
-        if ($logUser->id == $hobbie->user_id) {
+        if ($hobbie) {
 
             $updated = $hobbie->update($request->all());
 
             if ($updated) {
+
                 return response()->json([
                     'success'=>true,
-                    'data'=>$hobbie
+                    'message'=>'Hobbies updated'
                 ], 200);
+
             } else {
+
                 return response()->json([
                     'success'=>false,
                     'message'=> 'Error hobbie not updated'
@@ -92,21 +68,12 @@ class HobbieController extends Controller
 
             }
         } else {
+
             return response()->json([
                 'success'=>false,
                 'message'=> 'You can not update this hobbies'
             ], 400);
+
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Hobbie  $hobbie
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
-    {
-
     }
 }

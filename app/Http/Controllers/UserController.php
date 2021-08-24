@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 class userController extends Controller
 {
 
-    // SHOW ALL USERS (ADMIN)
-
+    // SHOW ALL USERS EVEN IF THE ARE NOT ACTIVE (ADMIN) (NOT IN USE)
     public function allUsers()
     {
         $user = auth()->user();
@@ -36,8 +35,7 @@ class userController extends Controller
     }
 
 
-    // SHOW ALL ACTIVE USERS (ADMIN)
-
+    // SHOW ALL ACTIVE USERS (ADMIN) (NOT IN USE)
     public function activeUsers()
     {
         $user = auth()->user();
@@ -62,8 +60,7 @@ class userController extends Controller
     }
 
 
-    // SHOW ALL USERS EXCEPT CURRENT USER LOGGED
-
+    // SHOW ALL USERS EXCEPT CURRENT USER LOGGED (NOT IN USE)
     public function allPlayers()
     {
         $users = User::where('id', '!=', auth()->id())->where('isActive', true)->get();
@@ -85,45 +82,53 @@ class userController extends Controller
         }
     }
 
-    // SHOW DEFAULT SEARCH BASED ON USER PREFERENCES
+    // GET MATCHES INFO FROM ACTUAL USER
+    public function loverMatches()
+    {
+        $matches = DB::table('users')
+            // GET LOVERS TABLE TO COMPARE USERS ID
+            ->join('lovers', function($join){
 
-    // public function defaultSearch(Request $request)
-    // {
-    //     // $hobbie = Hobbie::where('user_id', $request->user_id)->get();
-    //     $players = User::where('id', '!=', auth()->id())
-    //         ->where('gender', $request->lookingfor)
-    //         ->where('lookingfor', $request->gender)
-    //         ->orWhere([
-    //             ['lookingfor', 'both'],
-    //             ['gender', $request->lookingfor]])
-    //         ->get();
+                // COMPARE FIRST USER ID IS ON THE LOVERS ROW
+                $join->on('users.id', '=', 'lovers.user_b_id')
 
+                    // CHECK ACTUAL USER IS ON THE LOVERS ROW
+                    ->where('lovers.user_a_id', '=', auth()->id())
+                    ->where('lovers.isActive','=', 1)
 
-    //     if (!$players->isEmpty()) {
+                    // COMPARE THE OTHER USER ID ON LOVERS ROW
+                    ->orOn('users.id', '=', 'lovers.user_a_id')
+                    ->where('lovers.user_b_id', '=', auth()->id())
+                    ->where('lovers.isActive', '=', 1)
+            ;})
+            ->get();
 
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $players,
-    //             // 'hobbie' => $hobbie
-    //         ], 200);
+        if (!$matches->isEmpty()) {
 
-    //     }else{      
+            return response()->json([
+                'success' => true,
+                'data' => $matches,
+            ], 200);
 
-    //         return response()->json([
-    //             'success' => false,
-    //             'messate' => 'Error'
-    //         ], 400);
-    //     }
-    // }
+        }else{      
 
-        // SHOW SEARCH BASED ON HOBBIES
+            return response()->json([
+                'success' => false,
+                'messate' => 'Error'
+            ], 400);
 
+        }
+    }
+
+    
+    // GET PLAYERS BASED ON USER PREFERENCES
     public function defaultSearch(Request $request)
     {
         // IN CASE LOOKING FOR IS BOTH I HAVE TO CHANGE THE SEARCH METHOD
         if ($request->lookingfor == "both"){
             
             $players = DB::table('users')
+
                 // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
                 ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
 
@@ -135,14 +140,14 @@ class userController extends Controller
                 ->orWhere([
                     ['lookingfor', 'both'],
                     ['isActive', true]])
+
                 ->get();
 
-
-        
         } else {
 
             // REST OF SEARCHS BASED ON THE DEFAULT USER PREFERENCES NOT LOOKING FOR BOTH GENDERS
             $players = DB::table('users')
+
                 // JOIN HOBBIES TABLES TO USER TABLES BASED ON THEIR USER_ID
                 ->join('hobbies', 'users.id', '=', 'hobbies.user_id')
 
@@ -159,6 +164,7 @@ class userController extends Controller
                     ['lookingfor', 'both'],
                     ['gender', $request->lookingfor],
                     ['isActive', true]])
+
                 ->get();
         }
 
@@ -178,8 +184,7 @@ class userController extends Controller
         }
     }
 
-    // SHOW USER BY ID 
-
+    // SHOW USER BY ID (NOT IN USE)
     public function userById(Request $request)
     {
         $logUser= auth()->user();
@@ -208,8 +213,7 @@ class userController extends Controller
     }
 
 
-    // SHOW USER BY NAME
-
+    // SHOW USER BY NAME (NOT IN USE)
     public function userByName(Request $request)
     {
         $user = User::where('username', $request->user_name)->get();
@@ -231,10 +235,8 @@ class userController extends Controller
 
 
     // UPDATE USER
-
     public function update(Request $request)
     {
-        $logUser = auth()->user();
         $user = User::find($request->user_id);
 
         if ($user) {
@@ -269,7 +271,6 @@ class userController extends Controller
 
 
     // DEACTIVATE USER
-
     public function destroy(Request $request)
     {
         
@@ -299,22 +300,25 @@ class userController extends Controller
 
 
     // LOG OUT
-
     public function logout(Request $request)
     {
         $user = auth()->user();
         $userOut = $request->user()->token()->revoke();
 
         if ($userOut) {
+
             return response()->json([
                 'success' => true,
                 'message' => $user->userName . ' successfully logged out'
-            ]);
+            ], 200);
+
         } else {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error, you can\'t leave us.'
             ], 500);
+
         }
     }
 }

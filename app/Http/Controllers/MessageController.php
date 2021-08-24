@@ -3,83 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use App\Models\Match;
+use App\Models\Lover;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // CHECK IF THERE ARE MESSAGES AND SEND THEM
+    public function check (Request $request)
     {
-        //
+        $message = Message::where('match_id', $request->match_id)->get();
+
+        if ($message->isEmpty()) {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>'There is no messages here',
+            ],400);
+        } 
+
+        return response()->json([
+            'success'=>true,
+            'message' =>'Here you have your messages',
+            'data'=>$message
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
+        $message = Message::where('match_id', $request->match_id)->get();
+        $match = Lover::find($request->match_id);
+        
+        if ($match==false && $message->isEmpty() ) {
+
+            return response()->json([
+                'success'=>true,
+                'message'=>'You are not in the party'
+            ], 400);
+
+        } else {
+
+            $message = Message::create([
+                'text'=>$request->text,
+                'match_id'=>$request->match_id,
+                'user_from_id'=>$request->user_from_id,
+                'user_to_id'=>$request->user_to_id
+            ]);
+
+            if (!$message) {
+                return response()->json([
+                    'success'=>false,
+                    'message'=>'Message not created ' 
+                ], 500);
+            }
+
+            return response()->json([
+                'success'=>true,
+                'message'=>'Done!',
+                'data'=>$message->toArray()
+            ], 200);
+
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Message $message)
-    {
-        //
-    }
 }
