@@ -6,6 +6,7 @@ use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HobbieController;
 use App\Http\Controllers\LoverController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,9 @@ Route::middleware('auth:api')->group(function() {
     // LOVER ROUTES
     Route::post('match', [LoverController::class, 'store']);
     Route::post('unmatch', [LoverController::class, 'destroy']);
+
+    // MESSAGE ROUTES
+    Route::post('newmessage', [MessageController::class, 'store']);
+    Route::post('checkmessage', [MessageController::class, 'check']);
     
 });
