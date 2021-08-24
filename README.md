@@ -1,62 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# GEEKS DATE FRONT END
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Project details
 
-## About Laravel
+### This is a React + Laravel PHP project from Fullstack Developer Bootcamp at <a href="https://geekshubsacademy.com/">GeeksHubs Academy</a> 2021.
+<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### About
+Every project is an oportunity to learn a new way to work. On this case I wanted to do my first REACT + PHP LARAVEL WEB APP ever.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Geeks Date is an webapp like tinder or adoptauntio but focused on freak people. There is a lot of webapps, android apps and iphone apps to meet your perfect partner. Sometimes that kind of apps are focused on user pics rather than their hobbies. There are a big competition out there where people who looks for more interesting partners are not welcome. There are people who wants to share their freak hobbies like watch anime, play tablegames with some friends, play videogames from the couch, do some cosplay or enjoy a nice rolegame event. This is a webapp for them. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<br>
 
-## Learning Laravel
+- Start date: 20 July 2021
+- Delivery date: 23 August 2021
+- Dedicated time: > 60 hours 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## TECHNOLOGY
 
-## Laravel Sponsors
+- REACT<br>
+- PHP LARAVEL<br>
+- SEQUELIZE<br>
+- REDUX<br>
+- AXIOS<br>
+- GIT FLOW<br>
+- SCSS<br
+- POSTMAN<br>
+- DBeaver<br>
+- FONT-AWESOME<br>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<br>
+<br>
 
-### Premium Partners
+## Access to Heroku deploy
+https://geeksdatefront.herokuapp.com/
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+<br>
+<br>
 
-## Contributing
+## FROM THE BEGINING
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- 1 Clone this repository <br>
+- 2 Install dependencies <code> npm i </code> and execute app <code> npm start </code>
+- 3 Get this <a href="https://github.com/VicenteAparicio/FSD_GeekDates_BackEnd">BACKEND</a>
+- 4 Execute <code> php artisan serve </code>
 
-## Code of Conduct
+<br>
+<br>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ROUTES
+<br>
+Minimalism design for a good responsive app
 
-## Security Vulnerabilities
+<img src="./src/assets/readmeImg/img08.png" style="width: 100%"><br><br>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Your basic data will be register and saved on this page
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<br><br>
+
+## CONCLUSION
+
+<br>
+Geeks Dates have been one of the hardest projects on my learning. First time I had to work with REACT and PHP LARAVEL in a full project. I had to learn a lot about PHP LARAVEL, the querys and how to extract information from another tables with relations between them. I have to be very patient looking for the errors and how to fix them (very easy when you work with NODE JS).
+
+From the begining I felt like the concept of my database and front-end was not good to this complex app. I wasn't able to see the right way to work with the tables and their relations. I spent weeks to figure out how to manage the data to get all the info I needed for the front-end area. Days with no commits fighting with the code and the big information google could provide me. Days burning my brain and my confidence about the skills I am getting over this months. 
+
+Was a nice ride, hard but nice. I learned a lot of new stuff and thousand of ways of how not do something.
+
+<br><br>
+
+## THINGS I LEFT TO DO... FOR NOW
+
+<br>
+1.- Good landing page<br>
+2.- Good logo on landing page<br>
+3.- Redesign chat<br>
+4.- Add an upload image section<br>
+5.- Improve the edition of the user and hobbies<br>
+6.- Redesign a lot of buttons<br>
+7.- Redesign chat distribution for mobile view version<br>
+8.- Improve hobbie filters<br>
+9.- Add city filter<br>
+10.- Add country filter<br>
