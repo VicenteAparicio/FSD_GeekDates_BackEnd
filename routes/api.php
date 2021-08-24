@@ -19,14 +19,14 @@ use App\Http\Controllers\MessageController;
 |
 */
 
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
+Route::group(['middleware' => ['cors']], function () {
 
-Route::middleware('auth:api')->group(function() {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
+
+    Route::middleware('auth:api')->group(function() {
 
 
-    Route::group(['middleware' => ['cors']], function () {
-        
         // USER ROUTES
         Route::post('updateinfo', [UserController::class, 'update']);
         Route::post('deleteuser', [UserController::class, 'destroy']);
@@ -51,7 +51,7 @@ Route::middleware('auth:api')->group(function() {
         // MESSAGE ROUTES
         Route::post('newmessage', [MessageController::class, 'store']);
         Route::post('checkmessage', [MessageController::class, 'check']);
-
+        
     });
-    
+
 });
