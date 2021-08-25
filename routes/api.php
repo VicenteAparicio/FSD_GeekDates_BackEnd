@@ -19,7 +19,7 @@ use App\Http\Controllers\MessageController;
 |
 */
 
-// Route::group(['middleware' => ['cors']], function () {
+Route::group(['middleware' => ['cors']], function () {
 
     Route::post('register', [PassportAuthController::class, 'register']);
     Route::post('login', [PassportAuthController::class, 'login']);
@@ -54,4 +54,4 @@ use App\Http\Controllers\MessageController;
         
     });
 
-// });
+});
