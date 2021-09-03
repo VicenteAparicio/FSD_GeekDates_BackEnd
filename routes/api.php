@@ -29,6 +29,7 @@ use App\Http\Controllers\MessageController;
 
         // USER ROUTES
         Route::post('updateinfo', [UserController::class, 'update']);
+        Route::post('updatePass', [UserController::class, 'upPassword']);
         Route::post('deleteuser', [UserController::class, 'destroy']);
         Route::post('logout', [UserController::class, 'logout']);
         Route::post('userbyname', [UserController::class, 'userByName']);
