@@ -47,7 +47,8 @@ class User extends Authenticatable
         'gender',
         'sexuality',
         'lookingfor',
-        'password'
+        'password',
+        
     ];
 
     /**
@@ -60,7 +61,8 @@ class User extends Authenticatable
         'remember_token',
         'isAdmin',
         'isActive',
-        'isPremium'
+        'isPremium',
+        'check',
     ];
 
     /**

@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->foreignId('user_from_id')->references('id')->on('users');
             $table->foreignId('user_to_id')->references('id')->on('users');
             $table->text('text');
-            $table->integer('isActive')->default(true);
+            $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
     }

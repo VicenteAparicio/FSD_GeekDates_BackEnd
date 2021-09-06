@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->boolean('isAdmin')->default(false);
             $table->boolean('isPremium')->default(false);
             $table->boolean('isActive')->default(true);
+            $table->boolean('check')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
