@@ -62,7 +62,7 @@ class User extends Authenticatable
         'isAdmin',
         'isActive',
         'isPremium',
-        'check',
+        'complete',
     ];
 
     /**

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->integer('cp')->nullable();
+            $table->boolean('complete')->default(false);
             $table->string('gender')->nullable();
             $table->string('sexuality')->nullable();
             $table->string('lookingfor')->nullable();
@@ -34,7 +35,6 @@ class CreateUsersTable extends Migration
             $table->boolean('isAdmin')->default(false);
             $table->boolean('isPremium')->default(false);
             $table->boolean('isActive')->default(true);
-            $table->boolean('check')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
