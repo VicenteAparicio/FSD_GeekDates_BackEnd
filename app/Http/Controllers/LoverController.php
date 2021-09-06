@@ -68,23 +68,25 @@ class LoverController extends Controller
     // DELETE LOVER ROW (HAS TO BE DELETED IN CASE THEY WANT TO TALK IN A FUTURE)
     public function destroy(Request $request)
     {
-        $check = Lover::where('user_a_id', $request->user_b_id)
-                    ->where('user_b_id', $request->user_a_id)->get();
+        // $check = Lover::where('user_a_id', $request->user_b_id)
+        //             ->where('user_b_id', $request->user_a_id)->get();
+        $lover = Lover::find($request->id);
 
-        if ($check->isEmpty()) {
+        // if ($check->isEmpty()) {
+        if ($lover) {
 
-            $check = Lover::where('user_a_id', $request->user_a_id)
-                ->where('user_b_id', $request->user_b_id)->get();
+            // $check = Lover::where('user_a_id', $request->user_a_id)
+            //     ->where('user_b_id', $request->user_b_id)->get();
             
-            if ($check->isEmpty()){
-                return response()->json([
-                    'success'=>false,
-                    'message'=>'Lover not matched anymore'
-                ], 400);
-            }
-        }
+        //     if ($check->isEmpty()){
+        //         return response()->json([
+        //             'success'=>false,
+        //             'message'=>'Lover not matched anymore'
+        //         ], 400);
+        //     }
+        // }
 
-        $check[0]->delete();
+        $lover->delete();
 
         return response()->json([
             'success' => true,

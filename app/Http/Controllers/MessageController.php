@@ -39,7 +39,7 @@ class MessageController extends Controller
             return response()->json([
                 'success'=>true,
                 'message'=>'You are not in the party'
-            ], 400);
+            ], 200);
 
         } else {
 
