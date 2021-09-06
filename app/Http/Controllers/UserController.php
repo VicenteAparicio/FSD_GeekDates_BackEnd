@@ -331,7 +331,7 @@ class userController extends Controller
             ], 200);
 
             $userUp = $user->fill([
-                'urlPic'=>$user->nick
+                'urlpic'=>$user->nick
             ])->save();
 
             if($userUp) {

@@ -24,7 +24,8 @@ class Message extends Model
         'date',
         'match_id',
         'user_from_id',
-        'user_to_id'
+        'user_to_id',
+        'isActive'
     ];
 
     // protected $hidden = [

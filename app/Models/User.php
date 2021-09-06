@@ -39,6 +39,8 @@ class User extends Authenticatable
         'email',
         'age',
         'phone',
+        'description',
+        'urlpic',
         'country',
         'city',
         'cp',
