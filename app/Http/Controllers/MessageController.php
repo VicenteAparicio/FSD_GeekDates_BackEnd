@@ -34,7 +34,7 @@ class MessageController extends Controller
         $message = Message::where('match_id', $request->match_id)->get();
         $match = Lover::find($request->match_id);
         
-        if ($match==false && $message->isEmpty() ) {
+        if (!$match && $message->isEmpty()) {
 
             return response()->json([
                 'success'=>true,

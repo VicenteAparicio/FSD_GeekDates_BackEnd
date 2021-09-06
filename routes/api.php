@@ -35,6 +35,7 @@ use App\Http\Controllers\MessageController;
         Route::post('userbyname', [UserController::class, 'userByName']);
         Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
         Route::post('lovermatches', [UserController::class, 'loverMatches']);
+        Route::post('upload', [UserController::class, 'uploadPic']);
         
         // EXCLUSIVE ADMIN ROUTES
         Route::get('allusers', [UserController::class, 'allUsers']);
