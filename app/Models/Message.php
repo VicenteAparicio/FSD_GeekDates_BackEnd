@@ -25,10 +25,9 @@ class Message extends Model
         'match_id',
         'user_from_id',
         'user_to_id',
-        'isActive'
     ];
 
-    // protected $hidden = [
-    //     'isActive',
-    // ];
+    protected $hidden = [
+        'isActive',
+    ];
 }
