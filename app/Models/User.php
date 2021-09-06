@@ -48,6 +48,7 @@ class User extends Authenticatable
         'sexuality',
         'lookingfor',
         'password',
+        'isComplete',
         
     ];
 
@@ -62,7 +63,7 @@ class User extends Authenticatable
         'isAdmin',
         'isActive',
         'isPremium',
-        'isComplete',
+        
     ];
 
     /**
