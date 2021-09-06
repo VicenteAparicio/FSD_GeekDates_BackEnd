@@ -33,47 +33,57 @@ class HobbieController extends Controller
                 ], 200);
 
             } 
+        } else if ($checkhobbie) {
+            $updated = $checkhobbie[0]->update($request->all());
+
+            if ($updated) {
+
+                return response()->json([
+                    'success' => true,
+                    'message'=>'Hobbies updated'
+                ], 200);
+            }
         }
 
         return response()->json([
             'success'=>false,
-            'message'=>'Ya rellenaste tus hobbies'
+            'message'=>'Error'
         ], 500);
 
     }
 
 
     // UPDATE USER HOBBIES
-    public function update(Request $request)
-    {
-        $hobbie = Hobbie::where('user_id', $request->user_id);
+    // public function update(Request $request)
+    // {
+    //     $hobbie = Hobbie::where('user_id', $request->user_id);
 
-        if ($hobbie) {
+    //     if ($hobbie) {
 
-            $updated = $hobbie->update($request->all());
+    //         $updated = $hobbie->update($request->all());
 
-            if ($updated) {
+    //         if ($updated) {
 
-                return response()->json([
-                    'success'=>true,
-                    'message'=>'Hobbies updated'
-                ], 200);
+    //             return response()->json([
+    //                 'success'=>true,
+    //                 'message'=>'Hobbies updated'
+    //             ], 200);
 
-            } else {
+    //         } else {
 
-                return response()->json([
-                    'success'=>false,
-                    'message'=> 'Error hobbie not updated'
-                ], 500);
+    //             return response()->json([
+    //                 'success'=>false,
+    //                 'message'=> 'Error hobbie not updated'
+    //             ], 500);
 
-            }
-        } else {
+    //         }
+    //     } else {
 
-            return response()->json([
-                'success'=>false,
-                'message'=> 'You can not update this hobbies'
-            ], 400);
+    //         return response()->json([
+    //             'success'=>false,
+    //             'message'=> 'You can not update this hobbies'
+    //         ], 400);
 
-        }
-    }
+    //     }
+    // }
 }
