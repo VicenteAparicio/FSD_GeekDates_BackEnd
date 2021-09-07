@@ -33,6 +33,8 @@ class HobbieController extends Controller
                 ], 200);
 
             } 
+
+        // UPDATE IN CASE ALREADY EXIST
         } else if ($checkhobbie) {
             $updated = $checkhobbie[0]->update($request->all());
 
@@ -51,39 +53,4 @@ class HobbieController extends Controller
         ], 500);
 
     }
-
-
-    // UPDATE USER HOBBIES
-    // public function update(Request $request)
-    // {
-    //     $hobbie = Hobbie::where('user_id', $request->user_id);
-
-    //     if ($hobbie) {
-
-    //         $updated = $hobbie->update($request->all());
-
-    //         if ($updated) {
-
-    //             return response()->json([
-    //                 'success'=>true,
-    //                 'message'=>'Hobbies updated'
-    //             ], 200);
-
-    //         } else {
-
-    //             return response()->json([
-    //                 'success'=>false,
-    //                 'message'=> 'Error hobbie not updated'
-    //             ], 500);
-
-    //         }
-    //     } else {
-
-    //         return response()->json([
-    //             'success'=>false,
-    //             'message'=> 'You can not update this hobbies'
-    //         ], 400);
-
-    //     }
-    // }
 }

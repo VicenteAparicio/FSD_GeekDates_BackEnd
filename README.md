@@ -1,3 +1,5 @@
+<img src="./resources/imgs/img13.png" style="width: 100%"><br><br>
+
 # GEEKS DATE FRONT END
 
 ## Project details
@@ -34,9 +36,8 @@ Geeks Date is an webapp like tinder or adoptauntio but focused on freak people. 
 <br>
 <br>
 
-## Access to Heroku deploy
-https://geeksdatefront.herokuapp.com/
-
+## App
+<a href="https://dev.d3w0cb2207bqet.amplifyapp.com/">GEEK DATES</a>
 <br>
 <br>
 
@@ -50,16 +51,23 @@ https://geeksdatefront.herokuapp.com/
 <br>
 <br>
 
+## DIAGRAM
+<br>
+
+<img src="./resources/imgs/img04.png" style="width: 100%"><br><br>
+
+
+
 ## ROUTES
 <br>
-Minimalism design for a good responsive app
 
-<img src="./src/assets/readmeImg/img08.png" style="width: 100%"><br><br>
-
-Your basic data will be register and saved on this page
-
+<img src="./resources/imgs/img14.png" style="width: 100%"><br><br>
 
 <br><br>
+
+Users can explore all the active users in the app. Send invitation to talk and wait to the other user to send him back too. I was thinking a lot about the alarm when someone sends you an invitation but I don't want users get lazy. If they want to find some matches they will have to send "likes" like in tinder. 
+
+
 
 ## CONCLUSION
 
@@ -75,13 +83,7 @@ Was a nice ride, hard but nice. I learned a lot of new stuff and thousand of way
 ## THINGS I LEFT TO DO... FOR NOW
 
 <br>
-1.- Good landing page<br>
-2.- Good logo on landing page<br>
-3.- Redesign chat<br>
-4.- Add an upload image section<br>
-5.- Improve the edition of the user and hobbies<br>
-6.- Redesign a lot of buttons<br>
-7.- Redesign chat distribution for mobile view version<br>
-8.- Improve hobbie filters<br>
-9.- Add city filter<br>
-10.- Add country filter<br>
+1.- Add an upload image section<br>
+2.- Improve hobbie filters<br>
+3.- Add city filter<br>
+4.- Add country filter<br>
