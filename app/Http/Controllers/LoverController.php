@@ -86,12 +86,13 @@ class LoverController extends Controller
         //     }
         // }
 
-        $lover->delete();
+            $lover->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'UNMATCH!!!'
-        ], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'UNMATCH!!!'
+            ], 200);
 
+        }
     }
 }
