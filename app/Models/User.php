@@ -39,13 +39,17 @@ class User extends Authenticatable
         'email',
         'age',
         'phone',
+        'description',
+        'urlpic',
         'country',
         'city',
         'cp',
         'gender',
         'sexuality',
         'lookingfor',
-        'password'
+        'password',
+        'isComplete',
+        
     ];
 
     /**
@@ -58,7 +62,8 @@ class User extends Authenticatable
         'remember_token',
         'isAdmin',
         'isActive',
-        'isPremium'
+        'isPremium',
+        
     ];
 
     /**

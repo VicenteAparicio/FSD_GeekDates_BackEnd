@@ -269,6 +269,145 @@ class userController extends Controller
         }
     }
 
+    // UPDATE PASSWORD
+    public function upPassword (Request $request)
+    {
+        $logUser = auth()->user();
+        $user = User::find($request->user_id);
+
+        if ($request->user_id == $logUser->id || $logUser->isAdmin == true) {
+
+            $userUp = $user->fill([
+                'password'=>bcrypt($request->password)
+            ])->save();
+
+            if($userUp) {
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $user
+
+                ], 200);
+
+            } else {
+
+                return response()->json([
+                    'success'=>false,
+                    'message'=>'Password update error'
+                ], 500);
+            }
+
+        } else {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>'You don\'t have permission'
+            ], 400);
+            
+        }
+    }
+
+    // UPLOAD PIC
+    public function uploadPic (Request $request)
+    {
+        $logUser = auth()->user();
+        $user = User::find($logUser->id );
+
+        if ($user) {
+
+            // $path = Storage::disk('local')->put(request()->all(), 'images');
+
+            // echo asset('storage/file.txt');
+
+            // $path = $request->file('image')->store('images', 'public');
+            dd(request()->all())->store('images', 'public');
+            
+            // $path = $request->image->store('images');
+
+            return response()->json([
+                'success' => true,
+                'data' => $user
+
+            ], 200);
+
+            $userUp = $user->fill([
+                'urlpic'=>$user->nick
+            ])->save();
+
+            if($userUp) {
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $user
+
+                ], 200);
+
+            } else {
+
+                return response()->json([
+                    'success'=>false,
+                    'message'=>'Image upload error'
+                ], 500);
+            }
+
+        } else {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>'You don\'t have permission'
+            ], 400);
+            
+        }
+    }
+
+        // // UPLOAD PIC
+    // public function uploadPic (Request $request)
+    // {
+    //     $logUser = auth()->user();
+    //     $user = User::find($logUser->id );
+
+    //     if ($user) {
+
+            
+    //         $path = $request->image->store('images');
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $user
+
+    //         ], 200);
+
+    //         $userUp = $user->fill([
+    //             'urlPic'=>$path
+    //         ])->save();
+
+    //         if($userUp) {
+
+    //             return response()->json([
+    //                 'success' => true,
+    //                 'data' => $user
+
+    //             ], 200);
+
+    //         } else {
+
+    //             return response()->json([
+    //                 'success'=>false,
+    //                 'message'=>'Image upload error'
+    //             ], 500);
+    //         }
+
+    //     } else {
+
+    //         return response()->json([
+    //             'success'=>false,
+    //             'message'=>'You don\'t have permission'
+    //         ], 400);
+            
+    //     }
+    // }
+
+
 
     // DEACTIVATE USER
     public function destroy(Request $request)

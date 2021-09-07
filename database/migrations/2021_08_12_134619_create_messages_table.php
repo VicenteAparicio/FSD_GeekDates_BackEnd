@@ -15,10 +15,11 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('match_id')->references('id')->on('lovers');
+            $table->foreignId('match_id')->references('id')->on('lovers')->onDelete(('cascade'));
             $table->foreignId('user_from_id')->references('id')->on('users');
             $table->foreignId('user_to_id')->references('id')->on('users');
             $table->text('text');
+            $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
     }

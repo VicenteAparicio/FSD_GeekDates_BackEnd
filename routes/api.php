@@ -19,34 +19,41 @@ use App\Http\Controllers\MessageController;
 |
 */
 
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
+// Route::group(['middleware' => ['cors']], function () {
 
-Route::middleware('auth:api')->group(function() {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
 
-    // USER ROUTES
-    Route::post('updateinfo', [UserController::class, 'update']);
-    Route::post('deleteuser', [UserController::class, 'destroy']);
-    Route::post('logout', [UserController::class, 'logout']);
-    Route::post('userbyname', [UserController::class, 'userByName']);
-    Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
-    Route::post('lovermatches', [UserController::class, 'loverMatches']);
-    
-    // EXCLUSIVE ADMIN ROUTES
-    Route::get('allusers', [UserController::class, 'allUsers']);
-    Route::get('activeusers', [UserController::class, 'activeUsers']);
-    Route::post('userbyid', [UserController::class, 'userById']);
+    Route::middleware('auth:api')->group(function() {
 
-    // HOBBIE ROUTES
-    Route::post('hobbies', [HobbieController::class, 'store']);
-    Route::post('updatehobbies', [HobbieController::class, 'update']);
 
-    // LOVER ROUTES
-    Route::post('match', [LoverController::class, 'store']);
-    Route::post('unmatch', [LoverController::class, 'destroy']);
+        // USER ROUTES
+        Route::post('updateinfo', [UserController::class, 'update']);
+        Route::post('updatePass', [UserController::class, 'upPassword']);
+        Route::post('deleteuser', [UserController::class, 'destroy']);
+        Route::post('logout', [UserController::class, 'logout']);
+        Route::post('userbyname', [UserController::class, 'userByName']);
+        Route::post('defaultsearch', [UserController::class, 'defaultSearch']);
+        Route::post('lovermatches', [UserController::class, 'loverMatches']);
+        Route::post('upload', [UserController::class, 'uploadPic']);
+        
+        // EXCLUSIVE ADMIN ROUTES
+        Route::get('allusers', [UserController::class, 'allUsers']);
+        Route::get('activeusers', [UserController::class, 'activeUsers']);
+        Route::post('userbyid', [UserController::class, 'userById']);
 
-    // MESSAGE ROUTES
-    Route::post('newmessage', [MessageController::class, 'store']);
-    Route::post('checkmessage', [MessageController::class, 'check']);
-    
-});
+        // HOBBIE ROUTES
+        Route::post('hobbies', [HobbieController::class, 'store']);
+        Route::post('updatehobbies', [HobbieController::class, 'update']);
+
+        // LOVER ROUTES
+        Route::post('match', [LoverController::class, 'store']);
+        Route::post('unmatch', [LoverController::class, 'destroy']);
+
+        // MESSAGE ROUTES
+        Route::post('newmessage', [MessageController::class, 'store']);
+        Route::post('checkmessage', [MessageController::class, 'check']);
+        
+    });
+
+// });

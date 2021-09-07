@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->integer('age')->nullable();
             $table->integer('phone')->unique();
+            $table->text('description')->nullable();
+            $table->string('urlpic')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->integer('cp')->nullable();
@@ -32,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->boolean('isAdmin')->default(false);
             $table->boolean('isPremium')->default(false);
             $table->boolean('isActive')->default(true);
+            $table->boolean('isComplete')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
