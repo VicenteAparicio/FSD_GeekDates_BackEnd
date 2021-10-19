@@ -42,7 +42,8 @@ class HobbieController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message'=>'Hobbies updated'
+                    'message'=>'Hobbies updated',
+                    'data'=>$updated
                 ], 200);
             }
         }
