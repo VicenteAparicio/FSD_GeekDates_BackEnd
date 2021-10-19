@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Hobbie;
 use Illuminate\Http\Request;
 
 class PassportAuthController extends Controller
@@ -61,8 +60,7 @@ class PassportAuthController extends Controller
         if (auth()->attempt($data)) {
             $user = auth()->user();
             $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
-            $hobbies = DB::table('hobbie')->where($user->id, '=', 'user_id')->get();
-            return response()->json(['token' =>$token, 'user'=>$user, 'hobbies'=>$hobbies], 200);
+            return response()->json(['token' =>$token, 'user'=>$user], 200);
         } else {
             return response()->json(['error'=>'Unauthorised'], 401);
         }
