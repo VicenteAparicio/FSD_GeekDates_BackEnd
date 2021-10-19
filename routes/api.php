@@ -44,7 +44,7 @@ use App\Http\Controllers\MessageController;
 
         // HOBBIE ROUTES
         Route::post('hobbies', [HobbieController::class, 'store']);
-        Route::post('updatehobbies', [HobbieController::class, 'update']);
+        Route::post('gethobbies', [HobbieController::class, 'getHoobies']);
 
         // LOVER ROUTES
         Route::post('match', [LoverController::class, 'store']);

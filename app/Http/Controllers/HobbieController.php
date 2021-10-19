@@ -7,6 +7,27 @@ use Illuminate\Http\Request;
 
 class HobbieController extends Controller
 {
+
+    // GET HOBBIES FROM USER
+    public function getHobbies(Request $request)
+    {
+        $hobbie = Hobbie::where('user_id', $request->user_id)->get();
+
+        if ($hobbie) {
+
+            return response()->json([
+                'success' => true,
+                'data' => $hobbie
+            ], 200);
+
+        } 
+
+        return response()->json([
+            'success'=>false,
+            'message'=>'Error'
+        ], 500);
+    }
+
     // CREATE HOBBIES ROW WITH USER ID
     public function store(Request $request)
     {
