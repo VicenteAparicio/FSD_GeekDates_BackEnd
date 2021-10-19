@@ -37,13 +37,14 @@ class HobbieController extends Controller
         // UPDATE IN CASE ALREADY EXIST
         } else if ($checkhobbie) {
             $updated = $checkhobbie[0]->update($request->all());
+            $hobbie = Hobbie::where('user_id', $request->user_id)->get();
 
             if ($updated) {
 
                 return response()->json([
                     'success' => true,
                     'message'=>'Hobbies updated',
-                    'data'=>$updated
+                    'data'=>$hobbie
                 ], 200);
             }
         }
